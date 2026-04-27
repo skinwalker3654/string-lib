@@ -28,7 +28,7 @@ make test
 make install
 ```
 
-and after that you can use the library on your projects by simple putting on your project
+and after that you can use the library on your projects by simple putting on your source code this at the top
 ```c
 #include <stringlib.h>
 ```
