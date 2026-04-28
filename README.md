@@ -39,30 +39,36 @@ gcc project.c -o project -lstringlib
 ```
 ---
 
-# USAGE OF THE LIBRARY
+## remove the library
+```bash
+make remove
+```
+---
+
+# USAGE OF LIBRARY
 
 ```c
 //intiliaze the string
 char *str = string_initialize();
 
 //if you want to put a value safely just say
-string_put_value(&str, "hello");
+string_put_value(str, "hello");
 
 //to find the length of a string
-int len = string_len(&str);
+int len = string_len(str);
 
 //this function adds 2 strings together
-string_join(&str, " world");
+string_join(str, " world");
 
 //you can also pass an existing string 
-strign_join(&str, str2);
+strign_join(str, str2);
 
 //this functions make the string either full upper case or full lower case
-string_upper(&str);
-string_lower(&str);
+string_upper(str);
+string_lower(str);
 
 //and this has bounds checks so you put characters on indexes safely
-string_change_char(&str, 0, 'H');
+string_change_char(str, 0, 'H');
 
 //here we have 2 string and we check if they are equal
 char *a = string_initialize();
@@ -71,18 +77,14 @@ char *b = string_initialize();
 string_put_value(&a, "test");
 string_put_value(&b, "test");
 
-if(string_equal(&a, &b)) {
+if(string_equal(a, b)) {
     //do some code if they are equal
 }
 
 //always put that at the end otherwise you will have memory leaks
-string_destroy(&str);
+string_destroy(str);
 ```
 
-## remove the library
-```bash
-make remove
-```
 ---
 
 ## Notes

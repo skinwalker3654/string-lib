@@ -10,39 +10,39 @@ char *string_initialize(void) {
 }
 
 /* this uses the help of the strdup command so you dont have to resize the string every time */
-int string_put_value(char **string,char *content) {
+int string_put_value(char *string,char *content) {
     char *value = strdup(content);
     if(!value) return -1;
     
-    if(!*string) {
-        *string = value;
+    if(!string) {
+        string = value;
         return 0;
     }
 
-    free(*string);
-    *string = value;
+    free(string);
+    string = value;
 
     return 0;
 }
 
 /* this counts the len of the string simply */
-int string_len(char **string) {
+int string_len(char *string) {
     int counter = 0;
-    while((*string)[counter] != '\0') counter++;
+    while(string[counter] != '\0') counter++;
     return counter;
 }
 
 /* this joins 2 strings together */
-int string_join(char **str1, char *str2) {
-    if(!*str1 || !*str2) return -1;
+int string_join(char *str1, char *str2) {
+    if(!str1 || !str2) return -1;
 
     int len1 = string_len(str1);
-    int len2 = string_len(&str2);
+    int len2 = string_len(str2);
 
     char *buffer = malloc(len1+len2+1);
     if(!buffer) return -1;
 
-    strcpy(buffer,*str1);
+    strcpy(buffer,str1);
     strcat(buffer,str2);
     buffer[len1+len2] = '\0';
 
@@ -56,42 +56,47 @@ int string_join(char **str1, char *str2) {
 }
 
 /* instead of manually doing the loop when you want your string to be upper use this */
-void string_upper(char **string) {
+void string_upper(char *string) {
+    if(!string) return;
+
     int counter = 0;
-    while((*string)[counter] != '\0') {
-        (*string)[counter] = toupper((*string)[counter]);
+    while(string[counter] != '\0') {
+        string[counter] = toupper(string[counter]);
         counter++;
     }
 }
 
 /* instead of manually doing the loop when you want your string to be lower use this */
-void string_lower(char **string) {
+void string_lower(char *string) {
+    if(!string) return;
+
     int counter = 0;
-    while((*string)[counter] != '\0') {
-        (*string)[counter] = tolower((*string)[counter]);
+    while(string[counter] != '\0') {
+        string[counter] = tolower(string[counter]);
         counter++;
     }
 }
 
 /* this is safely changes the character at a given index by preventing out of bounds crashes */
-int string_change_char(char **string, int index, char ch) {
-    if(!*string) return -1;
+int string_change_char(char *string, int index, char ch) {
+    if(!string) return -1;
 
     if(index >= string_len(string) || index < 0) return -1;
-    (*string)[index] = ch;
+    string[index] = ch;
 
     return 0;
 }
 
 /* this is more clear then strcmp i guess */
-int string_equal(char **str1, char **str2) {
-    if(strcmp(*str1,*str2)==0) return 1;
+int string_equal(char *str1, char *str2) {
+    if(!str1 || str2) return -1;
+    if(strcmp(str1,str2)==0) return 1;
     return 0;
 }
 
 /* always destroy the string at the end. i made the life eisier with the simple functions but you dont get to have everything */
-void string_destroy(char **string) {
-    if(!*string) return;
-    free(*string);
-    *string = NULL;
+void string_destroy(char *string) {
+    if(!string) return;
+    free(string);
+    string = NULL;
 }
