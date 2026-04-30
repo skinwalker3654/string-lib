@@ -56,25 +56,29 @@ int string_join(char **str1, char *str2) {
 }
 
 /* instead of manually doing the loop when you want your string to be upper use this */
-void string_upper(char **string) {
-    if(!*string) return;
+int string_upper(char **string) {
+    if(!*string) return -1;
 
     int counter = 0;
     while((*string)[counter] != '\0') {
         (*string)[counter] = toupper((*string)[counter]);
         counter++;
     }
+
+    return 0;
 }
 
 /* instead of manually doing the loop when you want your string to be lower use this */
-void string_lower(char **string) {
-    if(!*string) return;
+int string_lower(char **string) {
+    if(!*string) return -1;
 
     int counter = 0;
     while((*string)[counter] != '\0') {
         (*string)[counter] = tolower((*string)[counter]);
         counter++;
     }
+
+    return 0;
 }
 
 /* this is safely changes the character at a given index by preventing out of bounds crashes */
@@ -91,6 +95,21 @@ int string_change_char(char **string, int index, char ch) {
 int string_equal(char **str1, char *str2) {
     if(!*str1 || str2) return -1;
     if(strcmp(*str1,str2)==0) return 1;
+    return 0;
+}
+
+/* this function adds a char at the end of the string */
+int string_push_char(char **string, char ch) {
+    if(!*string) return -1;
+
+    int size = strlen(*string);
+    char *temp =  realloc(*string,strlen(*string)+2);
+    if(!temp) return -1;
+
+    *string = temp;
+    (*string)[size] = ch;
+    (*string)[strlen(*string)] = '\0';
+
     return 0;
 }
 

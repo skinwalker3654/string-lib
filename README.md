@@ -85,6 +85,9 @@ if(string_equal(&a, "some text")) {
     //do some code if they are equal
 }
 
+//this function adds a character at the end of the string so you dont have to realloc manually
+string_push_char(&a, 'H');
+
 //always put that at the end otherwise you will have memory leaks
 string_destroy(&str);
 ```

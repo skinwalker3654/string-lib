@@ -46,6 +46,10 @@ int main(void) {
         printf("Strings are equal\n");
     }
 
+    printf("Putting the character 'M' at the end ...\n");
+    string_push_char(&string,'M');
+    printf("%s\n",string);
+
     printf("Realishing memory back to the system\n");
     string_destroy(&string);
     free(new_string);
