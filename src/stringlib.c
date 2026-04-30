@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <time.h>
+#include <stdio.h>
 
 /* every string must be nulled at first so i made this clear function to prevent crushes */
 char *string_initialize(void) {
@@ -100,7 +100,14 @@ int string_equal(char **str1, char *str2) {
 
 /* this function adds a char at the end of the string */
 int string_push_char(char **string, char ch) {
-    if(!*string) return -1;
+    if(!*string) {
+        *string = malloc(2);
+        if(!*string) return -1;
+
+        (*string)[0] = ch;
+        (*string)[1] = '\0';
+        return 0;
+    }
 
     int size = strlen(*string);
     char *temp =  realloc(*string,strlen(*string)+2);
